@@ -65,9 +65,11 @@ class HuggingFaceMetric(Metric):
 class NLGEvalViaSimilarityMeasuresMetric(Metric):
     def __init__(self, name: str, *args, **kwargs):
         self.name = name
+        kwargs["model_name"] = kwargs.get("model_name", "distilbert-base-uncased")
         if name == "bary":
             self.scorer = BaryScoreMetric(*args, **kwargs)
         elif name == "depth":
+            kwargs["layers_to_consider"] = kwargs.get("layers_to_consider", 5)
             self.scorer = DepthScoreMetric(*args, **kwargs)
         elif name == "infolm":
             self.scorer = InfoLM(*args, **kwargs)
