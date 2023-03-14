@@ -27,7 +27,23 @@ We also provide a way to aggregate these measures [WIP]
 
 ## Usage
 
-### Installation
+### Configuration
+
+1. Install conda locally following this [link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html).
+   We recommend [miniconda](https://docs.conda.io/en/latest/miniconda.html), it is more lightweight and will be sufficient for our usage.
+2. Create a new conda environment by executing the following command in your terminal:
+
+   ```sh
+   conda create -n aggregating_text_similarity_metrics python=3.10
+   conda activate aggregating_text_similarity_metrics
+   conda install pip
+   ```
+
+3. Having the conda environnement activated, install the [requirements](requirements.txt):
+
+   ```sh
+   pip install -r requirements.txt
+   ```
 
 First, install the module
 ```shell
