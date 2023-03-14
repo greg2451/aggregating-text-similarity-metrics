@@ -19,6 +19,9 @@ class SimilarityEvaluationDataset:
     candidates: List[str]
     human_scores: List[float]
 
+    def __len__(self):
+        return len(self.references)
+
     @classmethod
     def load_wmt_2016(cls, only_english: bool = True):
         if not os.path.exists(WMT_2016_PATH):
