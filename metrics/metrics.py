@@ -37,6 +37,9 @@ class HuggingFaceMetric(Metric):
     def __call__(
         self, references: List[str], predictions: List[str], *args, **kwargs
     ) -> List[float]:
+        assert len(references) == len(
+            predictions
+        ), "The number of references and predictions should be the same"
         if self.name == "bertscore":
             # BERTScore should be called specifying the language or the model type, so we default to English
             if "lang" not in kwargs and "model_type" not in kwargs:
@@ -58,7 +61,7 @@ class HuggingFaceMetric(Metric):
                 *args,
                 **kwargs,
             )[SCORE_FIELD_NAME[self.name]]
-            for reference, prediction in tqdm(zip(references, predictions, strict=True))
+            for reference, prediction in tqdm(zip(references, predictions))
         ]
 
 
@@ -79,6 +82,9 @@ class NLGEvalViaSimilarityMeasuresMetric(Metric):
             )
 
     def __call__(self, references: List[str], predictions: List[str]) -> List[float]:
+        assert len(references) == len(
+            predictions
+        ), "The number of references and predictions should be the same"
         self.scorer.prepare_idfs(references, predictions)
         return self.scorer.evaluate_batch(references, predictions)[
             self.scorer.measure_to_use
