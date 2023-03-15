@@ -1,3 +1,3 @@
-from .utils import SimilarityEvaluationDataset
+from .utils import SimilarityEvaluationDataset, get_wmt_data
 
-__all__ = ["SimilarityEvaluationDataset"]
+__all__ = ["SimilarityEvaluationDataset", "get_wmt_data"]

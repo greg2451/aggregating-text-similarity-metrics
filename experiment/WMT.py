@@ -1,10 +1,10 @@
 from metrics import load_all_metrics
-from benchmark_datasets import SimilarityEvaluationDataset
+from benchmark_datasets import get_wmt_data
 import numpy as np
 import pandas as pd
 
 if __name__ == "__main__":
-    dataset = SimilarityEvaluationDataset.load_wmt_2016()
+    dataset = get_wmt_data()
     metrics = load_all_metrics()
     scores = np.zeros((len(metrics), len(dataset)))
     for index, metric in enumerate(metrics.values()):
