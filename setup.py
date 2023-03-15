@@ -27,4 +27,6 @@ setup(
     install_requires=requirements,
     packages=find_packages(),
     keywords=["natural language processing", "text similarity", "metrics aggregation"],
+    package_data={"": ["data/*"]},
+    include_package_data=True,
 )
