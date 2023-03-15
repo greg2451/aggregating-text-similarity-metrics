@@ -1,6 +1,4 @@
 import os
-import tarfile
-import urllib.request
 from dataclasses import dataclass
 from typing import List
 
@@ -8,8 +6,7 @@ from dataclasses_json import dataclass_json
 
 
 DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
-
-WMT_2016_PATH = os.path.join(DATA_PATH, "wmt2016-seg-metric-dev-5lps")
+WMT_PATH = os.path.join(DATA_PATH, "DAseg-wmt-newstest")
 
 
 @dataclass_json
@@ -22,40 +19,39 @@ class SimilarityEvaluationDataset:
     def __len__(self):
         return len(self.references)
 
-    @classmethod
-    def load_wmt_2016(cls, only_english: bool = True):
-        if not os.path.exists(WMT_2016_PATH):
-            download_wmt16()
-        human_scores = []
-        candidates = []
-        references = []
+
+def get_wmt_data(only_english: bool = True) -> SimilarityEvaluationDataset:
+    human_scores = []
+    candidates = []
+    references = []
+    for year in [2016, 2017]:
         for language in [
             lang
-            for lang in os.listdir(WMT_2016_PATH)
+            for lang in os.listdir(f"{WMT_PATH}{year}")
             if (not only_english or lang.endswith("en"))
         ]:
             with (
                 open(
                     os.path.join(
-                        WMT_2016_PATH,
+                        f"{WMT_PATH}{year}",
                         language,
-                        f"newstest2015.human.{language}",
+                        f"newstest{year}.human.{language}",
                     ),
                     "r",
                 ) as human_scores_file,
                 open(
                     os.path.join(
-                        WMT_2016_PATH,
+                        f"{WMT_PATH}{year}",
                         language,
-                        f"newstest2015.mt-system.{language}",
+                        f"newstest{year}.mt-system.{language}",
                     ),
                     "r",
                 ) as candidates_file,
                 open(
                     os.path.join(
-                        WMT_2016_PATH,
+                        f"{WMT_PATH}{year}",
                         language,
-                        f"newstest2015.reference.{language}",
+                        f"newstest{year}.reference.{language}",
                     ),
                     "r",
                 ) as references_file,
@@ -74,21 +70,9 @@ class SimilarityEvaluationDataset:
             len(human_scores) == len(candidates) == len(references)
         ), "The number of human scores, candidates and references should be the same"
 
-        return cls(references, candidates, human_scores)
-
-
-def download_dataset(url: str, name: str):
-    urllib.request.urlretrieve(url, name)
-    with tarfile.open(name) as tar:
-        tar.extractall(DATA_PATH)
-    os.remove(name)
-
-
-def download_wmt16():
-    url = "https://www.statmt.org/wmt16/metrics-task/wmt2016-seg-metric-dev-5lps.tar.gz"
-    name = "wmt2016-seg-metric-dev-5lps.tar.gz"
-    download_dataset(url, name)
+        return SimilarityEvaluationDataset(references, candidates, human_scores)
 
 
 if __name__ == "__main__":
-    download_wmt16()
+    wmt_dataset = get_wmt_data()
+    print(len(wmt_dataset))
