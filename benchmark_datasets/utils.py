@@ -1,6 +1,7 @@
 import os
 from dataclasses import dataclass
 from typing import List
+import pkg_resources
 
 from dataclasses_json import dataclass_json
 
@@ -27,33 +28,42 @@ def get_wmt_data(only_english: bool = True) -> SimilarityEvaluationDataset:
     for year in [2016, 2017]:
         for language in [
             lang
-            for lang in os.listdir(f"{WMT_PATH}{year}")
+            for lang in os.listdir(
+                pkg_resources.resource_stream(__name__, f"{WMT_PATH}{year}")
+            )
             if (not only_english or lang.endswith("en"))
         ]:
             with (
                 open(
-                    os.path.join(
-                        f"{WMT_PATH}{year}",
-                        language,
-                        f"newstest{year}.human.{language}",
-                    ),
-                    "r",
+                    pkg_resources.resource_stream(
+                        __name__,
+                        os.path.join(
+                            f"{WMT_PATH}{year}",
+                            language,
+                            f"newstest{year}.human.{language}",
+                        ),
+                        "r",
+                    )
                 ) as human_scores_file,
                 open(
-                    os.path.join(
-                        f"{WMT_PATH}{year}",
-                        language,
-                        f"newstest{year}.mt-system.{language}",
-                    ),
-                    "r",
+                    pkg_resources.resource_stream(
+                        os.path.join(
+                            f"{WMT_PATH}{year}",
+                            language,
+                            f"newstest{year}.mt-system.{language}",
+                        ),
+                        "r",
+                    )
                 ) as candidates_file,
                 open(
-                    os.path.join(
-                        f"{WMT_PATH}{year}",
-                        language,
-                        f"newstest{year}.reference.{language}",
-                    ),
-                    "r",
+                    pkg_resources.resource_stream(
+                        os.path.join(
+                            f"{WMT_PATH}{year}",
+                            language,
+                            f"newstest{year}.reference.{language}",
+                        ),
+                        "r",
+                    )
                 ) as references_file,
             ):
                 human_scores += [
