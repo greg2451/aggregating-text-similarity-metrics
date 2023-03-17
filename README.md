@@ -8,21 +8,34 @@ Measuring the similarity between two texts is a fundamental task in Natural Lang
 
 In this repository, we provide a Python module to easily compute these measures on specific datasets that are particularly relevant for NLG evaluation. Indeed, these datasets contain pairs of texts that are similar, and are annotated by humans to quantify the degree of similarity.
 
-We also provide a way to aggregate these measures [WIP]
+We also provide a way to aggregate these measures through Kemeny ranking consensus [WIP]
 
 ## Technical details
 
 ### Datasets
 
-[WIP]
+We used WMT2016, WMT2017. We provide a downloading script for WMT2016, and data can be found [here](benchmark_datasets/data)
 
 ### Similarity Measures
 
-[WIP]
+We used the following similarity measures:
+- BLEU
+- CHRF
+- METEOR
+- ROUGE
+- TER
+- BERTScore
+- BaryScore
+- DepthScore
+- InfoLM
+- SacreBLEU
 
 ### Correlation
 
-[WIP]
+We provide results for the three classical correlation measures:
+- Pearson
+- Spearman
+- Kendall
 
 
 ## Usage
@@ -45,10 +58,16 @@ We also provide a way to aggregate these measures [WIP]
    pip install -r requirements.txt
    ```
 
-First, install the module
-```shell
-pip install torch numpy "git+https://github.com/PierreColombo/nlg_eval_via_simi_measures"
+### Running the benchmark
+
+To run the benchmark, you can use the [jupyter notebook](experiments/WMT.ipynb) or run the [python file](experiments/WMT.py) directly:
+
+```sh
+python experiments/WMT.py
 ```
+
+The expected output is to create a folder `results` containing the results of the benchmark on all the WMT data we have, for all the similarity measures.
+This folder will also contain the correlation results for all the similarity measures.
 
 ## Development setup
 
