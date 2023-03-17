@@ -1,3 +1,4 @@
+absl-py==1.4.0
 bert_score==0.3.13
 dataclasses-json==0.5.7
 evaluate==0.4.0
@@ -6,6 +7,7 @@ nltk==3.8.1
 numpy
 pandas==1.5.3
 pyemd==1.0.0
+rouge_score==0.1.2
 sacrebleu==2.3.1
 torch
 tqdm==4.65.0
