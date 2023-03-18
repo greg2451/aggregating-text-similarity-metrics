@@ -16,7 +16,7 @@ with open(os.path.join(DIR, "README.md"), encoding="utf-8") as readme_file:
 
 setup(
     name="aggregating-text-similarity-metrics",
-    version="0.0.2",
+    version="0.0.3",
     url="https://github.com/greg2451/aggregating-text-similarity-metrics.git",
     author="Grégoire Retourné, Hugo Peltier",
     author_email="gregoire.retourne@gmail.com",
@@ -26,13 +26,18 @@ setup(
     python_requires=">=3.9",
     install_requires=requirements,
     packages=find_packages(),
-    keywords=["natural language processing", "text similarity", "metrics aggregation"],
+    keywords=[
+        "natural language processing",
+        "text similarity",
+        "metrics aggregation",
+        "kemeny consensus",
+    ],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
     ],
-    package_data={"": ["data/*"]},
+    package_data={"": ["**/data/*"]},
     include_package_data=True,
 )

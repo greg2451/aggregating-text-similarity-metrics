@@ -46,7 +46,7 @@ class HuggingFaceMetric(Metric):
             if "lang" not in kwargs and "model_type" not in kwargs:
                 kwargs["model_type"] = "distilbert-base-uncased"
 
-            print("Computing BERTScore...")
+            print("Computing metric BERTScore")
             bert_scores = self.scorer.compute(
                 references=[[reference] for reference in references],
                 predictions=predictions,
@@ -64,7 +64,10 @@ class HuggingFaceMetric(Metric):
                     *args,
                     **kwargs,
                 )
-                for reference, prediction in tqdm(zip(references, predictions))
+                for reference, prediction in tqdm(
+                    zip(references, predictions),
+                    f"Computing metric {self.name}",
+                )
             ]
             return {
                 field: [score[field] for score in scores] for field in scores[0].keys()
@@ -78,7 +81,10 @@ class HuggingFaceMetric(Metric):
                     *args,
                     **kwargs,
                 )[SCORE_FIELD_NAME[self.name]]
-                for reference, prediction in tqdm(zip(references, predictions))
+                for reference, prediction in tqdm(
+                    zip(references, predictions),
+                    f"Computing metric {self.name}",
+                )
             ]
         }
 

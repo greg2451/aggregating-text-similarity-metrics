@@ -10,7 +10,7 @@ DIR = os.path.dirname(os.path.realpath(__file__))
 if __name__ == "__main__":
     # Create result dir
     now = str(datetime.now())[:19]
-    os.makedirs(os.path.join(DIR, f"results/run_{now}"), exist_ok=True)
+    os.makedirs(os.path.join(DIR, f"results/run_{now}"))
 
     # Load dataset and metrics
     dataset = get_wmt_data()
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     os.remove(os.path.join(DIR, f"results/run_{now}/checkpoint.csv"))
 
     # Compute correlations and save them
-    os.makedirs(os.path.join(DIR, f"results/run_{now}/correlations"), exist_ok=True)
+    os.makedirs(os.path.join(DIR, f"results/run_{now}/correlations"))
     for correlation_type in ["pearson", "spearman", "kendall"]:
         results.corr(method=correlation_type).to_csv(
             os.path.join(DIR, f"results/run_{now}/correlations/{correlation_type}.csv")

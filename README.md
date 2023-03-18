@@ -14,7 +14,7 @@ We also provide a way to aggregate these measures through Kemeny ranking consens
 
 ### Datasets
 
-We used WMT2016, WMT2017. We provide a downloading script for WMT2016, and data can be found [here](benchmark_datasets/data)
+We used WMT2016, WMT2017. We provide a downloading script for WMT2016, and data can be found [here](aggregating_text_similarity_metrics/benchmark_datasets/data)
 
 ### Similarity Measures
 
@@ -40,6 +40,14 @@ We provide results for the three classical correlation measures:
 
 ## Usage
 
+### Getting the code
+
+Clone the repository:
+
+```sh
+git clone https://github.com/greg2451/aggregating-text-similarity-metrics.git
+```
+
 ### Configuration
 
 1. Install conda locally following this [link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html).
@@ -60,14 +68,27 @@ We provide results for the three classical correlation measures:
 
 ### Running the benchmark
 
-To run the benchmark, you can use the [jupyter notebook](experiments/WMT.ipynb) or run the [python file](experiments/WMT.py) directly:
+To run the benchmark, you can use the [jupyter notebook](aggregating_text_similarity_metrics/wmt_experiment.ipynb) or run the [python file](aggregating_text_similarity_metrics/run_wmt_experiment.py):
 
 ```sh
-python experiments/WMT.py
+cd aggregating_text_similarity_metrics
+export PYTHONPATH=$PYTHONPATH:$(pwd)
+python run_wmt_experiment.py
 ```
+
+> Note that you need to have the `PYTHONPATH` set to the root of the repository, so that the `aggregating_text_similarity_metrics` module can be found.
 
 The expected output is to create a folder `results` containing the results of the benchmark on all the WMT data we have, for all the similarity measures.
 This folder will also contain the correlation results for all the similarity measures.
+
+
+You can also install the package locally and run the benchmark:
+
+```sh
+pip install -e .
+python -m aggregating_text_similarity_metrics.run_wmt_experiment
+```
+
 
 ## Development setup
 
