@@ -1,7 +1,7 @@
 import os
 
-from metrics import load_all_metrics
-from benchmark_datasets import get_wmt_data
+from aggregating_text_similarity_metrics.metrics import load_all_metrics
+from aggregating_text_similarity_metrics.benchmark_datasets import get_wmt_data
 import pandas as pd
 from datetime import datetime
 

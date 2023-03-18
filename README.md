@@ -71,9 +71,8 @@ git clone https://github.com/greg2451/aggregating-text-similarity-metrics.git
 To run the benchmark, you can use the [jupyter notebook](aggregating_text_similarity_metrics/wmt_experiment.ipynb) or run the [python file](aggregating_text_similarity_metrics/run_wmt_experiment.py):
 
 ```sh
-cd aggregating_text_similarity_metrics
 export PYTHONPATH=$PYTHONPATH:$(pwd)
-python run_wmt_experiment.py
+python aggregating_text_similarity_metrics/run_wmt_experiment.py
 ```
 
 > Note that you need to have the `PYTHONPATH` set to the root of the repository, so that the `aggregating_text_similarity_metrics` module can be found.
