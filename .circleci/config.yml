@@ -18,9 +18,23 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
+  flake8:
+    docker:
+      - image: cimg/python:3.10
+    steps:
+        - checkout
+        - run:
+            name: "Install flake8"
+            command: "pip install flake8"
+        - run:
+            name: "Run flake8"
+            command: "flake8 aggregating_text_similarity_metrics"
+
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+    build-and-test:
+        jobs:
+        - say-hello
+        - flake8
