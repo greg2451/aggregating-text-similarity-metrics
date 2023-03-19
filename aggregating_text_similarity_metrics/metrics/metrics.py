@@ -44,8 +44,7 @@ class HuggingFaceMetric(Metric):
         if self.name == "bertscore":
             # BERTScore should be called specifying the language or the model type.
             # We default to English.
-            if "lang" not in kwargs and \
-                    "model_type" not in kwargs:
+            if "lang" not in kwargs and "model_type" not in kwargs:
                 kwargs["model_type"] = "distilbert-base-uncased"
 
             print("Computing metric BERTScore")
