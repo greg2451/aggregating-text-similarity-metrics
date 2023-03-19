@@ -28,7 +28,7 @@ jobs:
             command: "pip install flake8"
         - run:
             name: "Run flake8"
-            command: "flake8 aggregating_text_similarity_metrics"
+            command: "flake8 --max-line-length=88 aggregating_text_similarity_metrics"
 
 
 # Invoke jobs via workflows
